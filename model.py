@@ -9,19 +9,15 @@ class User(db.Model):
 
     __tablename__ = 'users'
 
-    user_id = db.Column(db.Integer,
-    autoincrement=True,
-    primary_key=True)
+    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     fname = db.Column(db.String(20))
     lname = db.Column(db.String(20))
     password = db.Column(db.String(20))
-    # group_name = db.Column(db.String(20))
-    # group_password = db.Column(db.String(10))
-    # trip_id = db.Column(db.Integer)
-    # group_id = db.Column(db.Integer)
+    trip_id = db.Column(db.Integer, db.ForeignKey('trips.trip_id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
 
-    # group = db.relationship('Group')
-    # trip = db.relationship('Trip')
+    group = db.relationship('Group', backref='users')
+    trip = db.relationship('Trip', backref='users')
 
     def __repr__(self):
         return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname}>'
@@ -35,11 +31,10 @@ class Group(db.Model):
     autoincrement=True,
     primary_key=True)
     group_name = db.Column(db.String(20))
-    # removed foreign key(trips.group_name)
     group_password = db.Column(db.String(15))
+    trip_id = db.Column(db.Integer, db.ForeignKey('trips.trip_id'))
 
-    # user = db.relationship('User')
-    # trip = db.relationship('Trip')
+    trip = db.relationship('Trip', backref='groups')
     
     def __repr__(self):
         return f'<Group group_id={self.group_id} group_name={self.group_name}>'
@@ -53,10 +48,7 @@ class Trip(db.Model):
     trip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     trip_name = db.Column(db.String(20))
     trip_date = db.Column(db.DateTime)
-    group_name = db.Column(db.String(15))
-    
-    # group = db.relationship('Group')
-    # user = db.relationship('User')
+    # group_id = db.Column(db.Integer)
 
     def __repr__(self):
         return f'<Trip trip_id={self.trip_id} trip_name={self.trip_name}>'

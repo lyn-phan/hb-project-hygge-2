@@ -21,6 +21,11 @@ def login_page():
 
     return render_template('login.html')
 
+@app.route('/create_account')
+def create_account():
+    """creates an account"""
+
+
 @app.route('/calendar')
 def calendar():
     """display calendars"""

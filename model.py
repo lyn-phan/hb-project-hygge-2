@@ -47,7 +47,7 @@ class Trip(db.Model):
 
     trip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     trip_name = db.Column(db.String(20))
-    trip_date = db.Column(db.DateTime)
+    #trip_date = db.Column(db.DateTime)
     # group_id = db.Column(db.Integer)
 
     def __repr__(self):

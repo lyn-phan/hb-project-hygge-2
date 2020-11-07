@@ -1,13 +1,13 @@
 from model import User, Group, Trip, connect_to_db, db
+import os
 import crud
 import server 
 
+os.system('dropdb travel')
+os.system('createdb travel')
 
-# os.system('dropdb travel')
-# os.system('createdb travel')
-
-# model.connect_to_db(server.app)
-# model.db.create_all()
+connect_to_db(server.app)
+db.create_all()
 
 def get_users(db):
     return db.session.execute("""
@@ -32,4 +32,4 @@ def seed_user_group_trip(db):
 
     print(user)
 
-seed_user_group_trip(db.travel)
+seed_user_group_trip(db)

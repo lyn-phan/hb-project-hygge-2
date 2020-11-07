@@ -47,8 +47,8 @@ class Trip(db.Model):
 
     trip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     trip_name = db.Column(db.String(20))
-    #trip_date = db.Column(db.DateTime)
-    # group_id = db.Column(db.Integer)
+    trip_date = db.Column(db.DateTime)
+    group_id = db.Column(db.Integer)
 
     def __repr__(self):
         return f'<Trip trip_id={self.trip_id} trip_name={self.trip_name}>'

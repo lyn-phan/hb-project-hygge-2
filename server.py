@@ -15,15 +15,18 @@ def homepage():
     """ View Homepage """
     return render_template('homepage.html')
 
-@app.route('/login')
-def login_page():
-    """log in page"""
+@app.route('/log_in', methods=["GET"])
+def show_login():
+    """show log in form"""
 
-    return render_template('login.html')
+    return render_template('log_in.html')
 
-@app.route('/create_account')
-def create_account():
-    """creates an account"""
+@app.route('/log_in', methods=["POST"])
+def process_login():
+    """Logs user in site. Find user's login credentials located in
+    'request.form' dictionary, look up user and store them in session"""
+
+    existing_user = request.form.get('show_login')
 
 
 @app.route('/calendar')

@@ -2,6 +2,7 @@
 
 from model import db, User, Group, Trip, connect_to_db
 from datetime import datetime
+from flask import Flask 
 
 def create_user(fname, lname, password):
     """create and return a new user"""
@@ -10,7 +11,7 @@ def create_user(fname, lname, password):
     db.session.add(user)
     db.session.commit()
 
-    return user
+    return render_template("log_in.html")
 
 def create_group(group_name, group_password):
     """create group and return new group"""

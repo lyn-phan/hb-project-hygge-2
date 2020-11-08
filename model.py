@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from datetime import datetime
+from sqlalchemy.sql import func
 
 db = SQLAlchemy()
 
@@ -10,31 +11,15 @@ class User(db.Model):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    email = db.Column(db.String(30))
     fname = db.Column(db.String(20))
     lname = db.Column(db.String(20))
     password = db.Column(db.String(20))
-    created_at = db.Column(db.DateTime)
-    updated_at = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, server_default=func.now())
+    updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
     def __repr__(self):
         return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname}>'
-
-class Group(db.Model):
-    """Group of travelers"""
-
-    __tablename__ = 'groups'
-
-    group_id = db.Column(db.Integer,
-    autoincrement=True,
-    primary_key=True)
-    group_name = db.Column(db.String(20))
-    group_password = db.Column(db.String(15))
-    created_at = db.Column(db.DateTime)
-    updated_at = db.Column(db.DateTime)
-    
-    def __repr__(self):
-        return f'<Group group_id={self.group_id} group_name={self.group_name}>'
-
 
 class Trip(db.Model):
     """Built out trips are stored here. Will start with calendars/events to start as MVP"""
@@ -44,31 +29,11 @@ class Trip(db.Model):
     trip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     trip_name = db.Column(db.String(20))
     trip_date = db.Column(db.DateTime)
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
-    created_at = db.Column(db.DateTime)
-    updated_at = db.Column(db.DateTime)
-
-    group = db.relationship('Group', backref='trips')
+    created_at = db.Column(db.DateTime, server_default=func.now())
+    updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
     def __repr__(self):
         return f'<Trip trip_id={self.trip_id} trip_name={self.trip_name}>'
-
-class User_membership(db.Model):
-    """tracks which group a user is a part of"""
-
-    __tablename__ = 'user_memberships'
-
-    user_membership_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
-    created_at = db.Column(db.DateTime)
-    updated_at = db.Column(db.DateTime)
-
-    group = db.relationship('Group', backref='user_memberships')
-    user = db.relationship('User', backref='user_memberships')
-
-    def __repr__(self):
-        return f'<User_membership user_membership_id={self.user_membership_id}>'
 
 class User_trip(db.Model):
     """tracks which trips a user is a part of"""
@@ -78,8 +43,8 @@ class User_trip(db.Model):
     user_trip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     trip_id = db.Column(db.Integer, db.ForeignKey('trips.trip_id'))
-    created_at = db.Column(db.DateTime)
-    updated_at = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, server_default=func.now())
+    updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
     trip = db.relationship('Trip', backref='user_trips')
     user = db.relationship('User', backref='user_trips')
@@ -87,6 +52,21 @@ class User_trip(db.Model):
     def __repr__(self):
         return f'<User_trip user_trip_id={self.user_trip_id}>'
 
+class Event(db.Model):
+    """track events on trip contributed by users"""
+
+    __tablename__ = 'events'
+
+    event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    event_name = db.Column(db.String(20))
+    trip_id = db.Column(db.Integer, db.ForeignKey('trips.trip_id'))
+    created_at = db.Column(db.DateTime, server_default=func.now())
+    updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
+
+    trip = db.relationship('Trip', backref='events')
+
+    def __repr__(self):
+        return f'<Event event_id={self.event_id} event_name={self.event_name}>'
 
 #change ///ratings to project name?
 # def connect_to_db(flask_app, db_uri='postgresql:///travel', echo=True):

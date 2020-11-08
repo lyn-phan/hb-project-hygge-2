@@ -1,6 +1,6 @@
 """CRUD OPERATION"""
 
-from model import db, User, Group, Trip, connect_to_db
+from model import db, User, Trip, connect_to_db
 from datetime import datetime
 from flask import Flask 
 

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+  <h1>Let's go somewhere together.</h1>
+<p>
+    Please create a profile below:
+</p>
+<form>
+    <label> First name: </label>
+    <input type="text" name="fname"> </form>
+<br>
+<form>
+    <label> Last name: </label>
+    <input type="text" name="fname">
+</form>
+<br>
+<form>
+    <label> Create a password: </label>
+    <input type="text" name="password">
+</form>
+<br>
+<form>
+    <input type="radio" name="group-id" value="yes">
+    <label> Yes </label>
+    <input type="radio" name="group-id" value="no">
+    <label> No </label>
+    <label> If you have a group ID, please enter it below.</label>
+    <input type="text" name="group-id">
+</form>
+
+    <p>
+      <form>
+      <input type="submit">
+    </p>
+  </form>
+{% endblock %}

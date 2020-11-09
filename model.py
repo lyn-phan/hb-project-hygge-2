@@ -20,6 +20,13 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname}>'
+    
+    @classmethod
+    def authenticate(cls, email, password):
+        try:
+            return cls.query.filter_by(email=email, password=password).one()
+        except NoResultFound:
+            return None
 
 class Trip(db.Model):
     """Built out trips are stored here. Will start with calendars/events to start as MVP"""

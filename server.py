@@ -1,8 +1,8 @@
 """Server for Project Hygge app."""
 
-from flask import (Flask, render_template, request, flash, session, redirect)
-from model import connect_to_db 
-import crud
+from flask import Flask, render_template, request, flash, session, redirect, flash
+from model import User, Trip, User_trip, Event, connect_to_db, db
+from crud import *
 
 from jinja2 import StrictUndefined
 
@@ -15,31 +15,35 @@ def homepage():
     """ View Homepage """
     return render_template('homepage.html')
 
-@app.route('/login', methods=['GET'])
-def show_login():
-    """show log in form"""
-
-    return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def login():
     """Logs user in site. Find user's login credentials located in
     'request.form' dictionary, look up user and store them in session"""
-    fname = request.form.get('fname')
-    lname = request.form.get('lname')
+    # fname = request.form.get('fname')
+    # lname = request.form.get('lname')
     email = request.form.get('email')
     password = request.form.get('password')
 
+    print("this is the user's email: ", email)
+    print("**********************************")
+    user = User.authenticate(email, password)
+
     if user:
-        session['fname'] = User.fname
-        session['lname'] = User.lname
-        return redirect['/']
+        session['email'] = user.email
+        print("hey the user exists!")
+        return redirect('/')
+    else:
+        flash("Sorry, we couldn't find your profile. Please log in or create an account.")
+        return redirect('/login')
+    
+    
 
-@app.route('/signup', methods=['GET'])
-def show_signup():
-    """displays signup page"""
+@app.route('/login')
+def show_login():
+    """show log in form"""
 
-    return render_template('signup.html')
+    return render_template('login.html')
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -47,16 +51,18 @@ def signup():
 
     email = request.form.get('email')
     password = request.form.get('password')
+
+   
     found_user = User.query.filter_by(email=email).all()
 
     if found_user:
         message = "Welcome back! Please log in."
     
     else:
-        fname = request.form.get('fname')
-        lname = request.form.get('lname')
-        email = request.form.get('email')
-        password = request.form.get('password')
+        fname = request.args.get('fname')
+        lname = request.args.get('lname')
+        email = request.args.get('email')
+        password = request.args.get('password')
 
         user = User(fname=fname,
         lname=lname,
@@ -70,6 +76,12 @@ def signup():
     
     flash(message)
     return redirect('/login')
+
+@app.route('/signup')
+def show_signup():
+    """displays signup page"""
+
+    return render_template('signup.html')
 
 @app.route('/calendar')
 def calendar():

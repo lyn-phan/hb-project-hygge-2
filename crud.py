@@ -1,6 +1,6 @@
 """CRUD OPERATION"""
 
-from model import db, User, Trip, connect_to_db
+from model import db, User, Trip, User_trip, Event, connect_to_db
 from datetime import datetime
 from flask import Flask 
 
@@ -13,15 +13,6 @@ def create_user(fname, lname, password):
 
     return render_template("log_in.html")
 
-def create_group(group_name, group_password):
-    """create group and return new group"""
-    group = Group(group_name=group_name, group_password=group_password)
-
-    db.session.add(group)
-    db.session.commit()
-
-    return group
-
 def create_trip(trip_name):
     """create and return new trip"""
     trip = Trip(trip_name=trip_name)
@@ -30,6 +21,15 @@ def create_trip(trip_name):
     db.session.commit()
 
     return trip
+
+def create_user_trip(id_of_trip, id_of_user):
+    """create and return trips associated to a user"""
+    user_id = User.query.get(User.user_id)
+    trip_id = Trip.query.get(Trip.trip_id)
+    user_trip = User_trip(user_id=user_id, trip_id=trip_id)
+    
+    db.session.add(user_trip)
+    db.session.commit()
 
 if __name__ == '__main__':
     from server import app

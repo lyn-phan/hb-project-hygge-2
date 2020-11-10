@@ -20,26 +20,23 @@ def homepage():
 def login():
     """Logs user in site. Find user's login credentials located in
     'request.form' dictionary, look up user and store them in session"""
-    # fname = request.form.get('fname')
-    # lname = request.form.get('lname')
+
+    fname = request.form.get('fname')
     email = request.form.get('email')
     password = request.form.get('password')
 
-    print("this is the user's email: ", email)
-    print("**********************************")
     user = User.authenticate(email, password)
 
     if user:
         session['email'] = user.email
-        print("hey the user exists!")
+        fname['fname'] = user.fname
+ 
         return redirect('/')
     else:
         flash("Sorry, we couldn't find your profile. Please log in or create an account.")
-        return redirect('/login')
-    
-    
+        return redirect('/')    
 
-@app.route('/login')
+@app.route('/login', methods=['GET'])
 def show_login():
     """show log in form"""
 
@@ -52,22 +49,18 @@ def signup():
     email = request.form.get('email')
     password = request.form.get('password')
 
-   
     found_user = User.query.filter_by(email=email).all()
 
     if found_user:
         message = "Welcome back! Please log in."
     
     else:
-        fname = request.args.get('fname')
-        lname = request.args.get('lname')
-        email = request.args.get('email')
-        password = request.args.get('password')
+        fname = request.form.get('fname')
+        lname = request.form.get('lname')
+        email = request.form.get('email')
+        password = request.form.get('password')
 
-        user = User(fname=fname,
-        lname=lname,
-        email=email,
-        password=password)
+        user = User(fname=fname, lname=lname, email=email, password=password)
 
         db.session.add(user)
         db.session.commit()
@@ -75,7 +68,7 @@ def signup():
         message = 'Thanks for signing up, %s! Please log in to get started.' %(fname)
     
     flash(message)
-    return redirect('/login')
+    return redirect('/')
 
 @app.route('/signup')
 def show_signup():
@@ -83,9 +76,9 @@ def show_signup():
 
     return render_template('signup.html')
 
-@app.route('/calendar')
-def calendar():
-    """display calendars"""
+@app.route('/home')
+def show_home():
+    """displays user's homepage once logged in"""
 
 
 @app.route('/trip')

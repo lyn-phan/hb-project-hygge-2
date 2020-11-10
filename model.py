@@ -28,6 +28,15 @@ class User(db.Model):
         except NoResultFound:
             return None
 
+    @classmethod
+    def find_email(cls, email):
+        try:
+            found_user = cls.query.filter_by(email=email).one()
+            return found_user
+
+        except NoResultFound:
+            return None
+             
 class Trip(db.Model):
     """Built out trips are stored here. Will start with calendars/events to start as MVP"""
 

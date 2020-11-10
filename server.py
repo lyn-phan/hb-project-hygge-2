@@ -78,12 +78,21 @@ def show_signup():
 
 @app.route('/home')
 def show_home():
-    """displays user's homepage once logged in"""
+    """displays user's homepage once logged in. This
+    includes trips that a user is a part of"""
+    trip_name = request.form.get('trip_name')
+    trip_date = request.form.get('trip_date')
+    user_trip_id = request.form.get('user_trip_id')
 
+    return render_template('home.html')
 
-@app.route('/trip')
+@app.route('/trips/new', methods=["POST"])
 def trip_summary():
-    """display trip details"""
+    """shows form to add a new trip. This form sends to
+    /trips"""
+
+# @app.route('/trips')
+# def show_my_trips():
 
 if __name__ == '__main__':
     connect_to_db(app)

@@ -22,12 +22,10 @@ def create_trip(trip_name):
 
     return trip
 
-def create_user_trip(id_of_trip, id_of_user):
+def create_user_trip(user_id, trip_id):
     """create and return trips associated to a user"""
-    user_id = User.query.get(User.user_id)
-    trip_id = Trip.query.get(Trip.trip_id)
     user_trip = User_trip(user_id=user_id, trip_id=trip_id)
-    
+
     db.session.add(user_trip)
     db.session.commit()
 

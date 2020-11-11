@@ -18,13 +18,15 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
+    trip = db.relationship('Trip', secondary='user_trips', backref='users')
+    
     def __repr__(self):
         return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname}>'
     
     @classmethod
-    def authenticate(cls, email, password):
+    def authenticate(cls, fname, email, password):
         try:
-            return cls.query.filter_by(email=email, password=password).one()
+            return cls.query.filter_by(fname=fname, email=email, password=password).one()
         except NoResultFound:
             return None
 
@@ -48,8 +50,10 @@ class Trip(db.Model):
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
+    user = db.relationship('User', secondary='user_trips', backref='trips')
+
     def __repr__(self):
-        return f'<Trip trip_id={self.trip_id} trip_name={self.trip_name}>'
+        return f'{self.trip_name}'
 
 class User_trip(db.Model):
     """tracks which trips a user is a part of"""
@@ -84,8 +88,6 @@ class Event(db.Model):
     def __repr__(self):
         return f'<Event event_id={self.event_id} event_name={self.event_name}>'
 
-#change ///ratings to project name?
-# def connect_to_db(flask_app, db_uri='postgresql:///travel', echo=True):
 def connect_to_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///travel'
     app.config['SQLALCHEMY_ECHO'] = True

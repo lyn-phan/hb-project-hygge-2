@@ -4,14 +4,14 @@ from model import db, User, Trip, User_trip, Event, connect_to_db
 from datetime import datetime
 from flask import Flask 
 
-def create_user(fname, lname, password):
+def create_user(fname, lname, email, password):
     """create and return a new user"""
-    user = User(fname=fname, lname=lname, password=password)
+    user = User(fname=fname, lname=lname, email=email, password=password)
 
     db.session.add(user)
     db.session.commit()
 
-    return render_template("log_in.html")
+    return user
 
 def create_trip(trip_name):
     """create and return new trip"""

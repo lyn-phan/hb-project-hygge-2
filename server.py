@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, request, flash, session, redirect, flash
 from model import User, Trip, User_trip, Event, connect_to_db, db
+import jinja2
 from crud import *
 
 from jinja2 import StrictUndefined
@@ -25,13 +26,14 @@ def login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    user = User.authenticate(email, password)
+    user = User.authenticate(fname, email, password)
 
     if user:
         session['email'] = user.email
-        fname['fname'] = user.fname
+        session['fname'] = user.fname
+        session['user_id'] = user.user_id
  
-        return redirect('/')
+        return redirect('/home')
     else:
         flash("Sorry, we couldn't find your profile. Please log in or create an account.")
         return redirect('/')    
@@ -65,7 +67,7 @@ def signup():
         db.session.add(user)
         db.session.commit()
 
-        message = 'Thanks for signing up, %s! Please log in to get started.' %(fname)
+        message = f'Thanks for signing up, {fname}! Please log in to get started.'
     
     flash(message)
     return redirect('/')
@@ -80,19 +82,36 @@ def show_signup():
 def show_home():
     """displays user's homepage once logged in. This
     includes trips that a user is a part of"""
-    trip_name = request.form.get('trip_name')
-    trip_date = request.form.get('trip_date')
-    user_trip_id = request.form.get('user_trip_id')
 
-    return render_template('home.html')
+    all_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id).join(User).all()
 
-@app.route('/trips/new', methods=["POST"])
-def trip_summary():
+    user_id = session['user_id']
+    current_user = User.query.get(session['user_id'])
+    my_user_trip_id = current_user.user_trips
+    my_user_trip_name = current_user.trips
+    
+    return render_template('home.html', my_user_trip_name=my_user_trip_name)
+
+@app.route('/trips/new')
+def show_new_trip_form():
     """shows form to add a new trip. This form sends to
     /trips"""
 
-# @app.route('/trips')
-# def show_my_trips():
+    return render_template('new_trips.html')
+
+@app.route('/trips/new', methods=['POST'] )
+def show_new_trip():
+    """retrieves data from new_trip form and creates new trip and adds to database """
+    user_id = session['user_id']
+    trip_name = request.form.get('trip_name')
+    # trip_date = request.form.get('trip_date') #deal with datetime later
+    new_trip = Trip(trip_name=trip_name)
+    new_user_trip = User_trip(trip_id=Trip.trip_id, user_id=session['user_id'])
+
+    db.session.add(new_trip, new_user_trip)
+    db.session.commit()
+
+    return redirect('/home')
 
 if __name__ == '__main__':
     connect_to_db(app)

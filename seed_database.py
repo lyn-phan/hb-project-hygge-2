@@ -31,13 +31,12 @@ def seed_user_trip(db):
                  trip_id = 1,
                  event_name = 'Summer 2020')
     
-    
     db.session.add(user)
     db.session.add(trip)
     db.session.add(user_trip)
     db.session.add(event)
     db.session.commit()
 
-    print(user)
+    return user
 
 seed_user_trip(db)

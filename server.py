@@ -105,10 +105,12 @@ def show_new_trip():
     user_id = session['user_id']
     trip_name = request.form.get('trip_name')
     # trip_date = request.form.get('trip_date') #deal with datetime later
-    new_trip = Trip(trip_name=trip_name)
-    new_user_trip = User_trip(trip_id=Trip.trip_id, user_id=session['user_id'])
 
-    db.session.add(new_trip, new_user_trip)
+    new_trip = Trip(trip_name=trip_name)
+    new_trip_id = Trip.query.filter(new_trip['trip_id'])
+    create_trip = User_trip(trip_id=new_trip_id, user_id=session['user_id'])
+
+    db.session.add(new_trip, create_trip)
     db.session.commit()
 
     return redirect('/home')

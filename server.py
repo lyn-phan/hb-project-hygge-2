@@ -62,10 +62,7 @@ def signup():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        user = User(fname=fname, lname=lname, email=email, password=password)
-
-        db.session.add(user)
-        db.session.commit()
+        user = crud.create_user(fname=fname, lname=lname, email=email, password=password)
 
         message = f'Thanks for signing up, {fname}! Please log in to get started.'
     
@@ -83,15 +80,19 @@ def show_home():
     """displays user's homepage once logged in. This
     includes trips that a user is a part of"""
 
-    # all_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id).join(User).all()
+    all_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id).join(User).all()
 
     user_id = session['user_id']
-    # current_user = User.query.get(session['user_id'])
+    current_user = User.query.get(session['user_id'])
     # my_user_trip_id = current_user.user_trips
-    # my_user_trip_name = current_user.trips
-    add_user_session(user_id)
+    my_user_trip_name = current_user.trips
     
     return render_template('home.html', my_user_trip_name=my_user_trip_name)
+
+@app.route('/trips')
+def show_all_trips():
+    """shows a single trip that includes members invited, allows for edits and a button to create events """
+    
 
 @app.route('/trips/new')
 def show_new_trip_form():
@@ -104,29 +105,25 @@ def show_new_trip_form():
     
 @app.route('/trips/new', methods=['POST'] )
 def show_new_trip():
-    # """retrieves data from new_trip form and creates new trip and adds to database """
+    """retrieves data from new_trip form and creates new trip and adds to database """
     
-    # trip_name = request.form.get('trip_name')
-  
-    # new_trip = Trip(trip_name=trip_name)
-    # db.session.add(new_trip)
-    # db.session.commit()
-
-    # new_id = new_trip.trip_id 
-
-    # user_trip = User_trip(trip_id=new_id, user_id=session['user_id'])
-
-    # db.session.add(user_trip)
-    # db.session.commit()
-    session['user_id'] = User.user_id
     trip_name = request.form.get('trip_name')
-  
-    add_trip = crud.create_new_trip(trip_name)
-    if add_trip:
-        flash("You're going places! We added your trip.")
+    new_trip = crud.create_trip(trip_name=trip_name)
 
-    return redirect('/home', add_trip=add_trip)
+    new_id = new_trip.trip_id 
+    user_trip = crud.create_user_trip(user_id=session['user_id'], trip_id=new_id,)
 
+    friends_email = request.form.get('email')
+    found_user = User.query.filter_by(email=friends_email).all()
+
+    if found_user:
+        friend_id = db.session.query(User.user_id).first()
+        user_trip = crud.create_user_trip(user_id=friend_id, trip_id=new_id)
+        flash("You're going places! You and your friends are going on a trip.")
+    else:
+        flash("Sorry, your friend hasn't signed up yet.")
+
+    return redirect('/home')
 
 
 if __name__ == '__main__':

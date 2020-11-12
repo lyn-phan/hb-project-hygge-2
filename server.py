@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, flash, session, redirect, flash
 from model import User, Trip, User_trip, Event, connect_to_db, db
-from crud import *
+import crud 
 import sqlalchemy
 
 from jinja2 import StrictUndefined
@@ -83,12 +83,13 @@ def show_home():
     """displays user's homepage once logged in. This
     includes trips that a user is a part of"""
 
-    all_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id).join(User).all()
+    # all_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id).join(User).all()
 
     user_id = session['user_id']
-    current_user = User.query.get(session['user_id'])
-    my_user_trip_id = current_user.user_trips
-    my_user_trip_name = current_user.trips
+    # current_user = User.query.get(session['user_id'])
+    # my_user_trip_id = current_user.user_trips
+    # my_user_trip_name = current_user.trips
+    add_user_session(user_id)
     
     return render_template('home.html', my_user_trip_name=my_user_trip_name)
 
@@ -103,22 +104,29 @@ def show_new_trip_form():
     
 @app.route('/trips/new', methods=['POST'] )
 def show_new_trip():
-    """retrieves data from new_trip form and creates new trip and adds to database """
+    # """retrieves data from new_trip form and creates new trip and adds to database """
     
+    # trip_name = request.form.get('trip_name')
+  
+    # new_trip = Trip(trip_name=trip_name)
+    # db.session.add(new_trip)
+    # db.session.commit()
+
+    # new_id = new_trip.trip_id 
+
+    # user_trip = User_trip(trip_id=new_id, user_id=session['user_id'])
+
+    # db.session.add(user_trip)
+    # db.session.commit()
+    session['user_id'] = User.user_id
     trip_name = request.form.get('trip_name')
   
-    new_trip = Trip(trip_name=trip_name)
-    db.session.add(new_trip)
-    db.session.commit()
+    add_trip = crud.create_new_trip(trip_name)
+    if add_trip:
+        flash("You're going places! We added your trip.")
 
-    new_id = new_trip.trip_id 
+    return redirect('/home', add_trip=add_trip)
 
-    user_trip = User_trip(trip_id=new_id, user_id=session['user_id'])
-
-    db.session.add(user_trip)
-    db.session.commit()
-
-    return redirect('/home')
 
 
 if __name__ == '__main__':

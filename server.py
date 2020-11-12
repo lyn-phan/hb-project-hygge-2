@@ -108,12 +108,14 @@ def show_new_trip():
     trip_name = request.form.get('trip_name')
   
     new_trip = Trip(trip_name=trip_name)
-    session['new_trip'] = new_trip
-    new_trip_id = Trip.query.filter_by().count()
+    db.session.add(new_trip)
+    db.session.commit()
 
-    create_trip = User_trip(trip_id=new_trip_id, user_id=session['user_id'])
+    new_id = new_trip['trip_id'] 
 
-    db.session.add(new_trip, create_trip)
+    user_trip = User_trip(trip_id=new_id, user_id=session['user_id'])
+
+    db.session.add(user_trip)
     db.session.commit()
 
     return redirect('/home')

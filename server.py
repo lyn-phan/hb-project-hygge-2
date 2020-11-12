@@ -2,8 +2,8 @@
 
 from flask import Flask, render_template, request, flash, session, redirect, flash
 from model import User, Trip, User_trip, Event, connect_to_db, db
-import jinja2
 from crud import *
+import sqlalchemy
 
 from jinja2 import StrictUndefined
 
@@ -99,21 +99,25 @@ def show_new_trip_form():
 
     return render_template('new_trips.html')
 
+    # TODO: trip_date = request.form.get('trip_date') #deal with datetime later
+    
 @app.route('/trips/new', methods=['POST'] )
 def show_new_trip():
     """retrieves data from new_trip form and creates new trip and adds to database """
-    user_id = session['user_id']
+    
     trip_name = request.form.get('trip_name')
-    # trip_date = request.form.get('trip_date') #deal with datetime later
-
+  
     new_trip = Trip(trip_name=trip_name)
-    new_trip_id = Trip.query.filter(new_trip['trip_id'])
+    session['new_trip'] = new_trip
+    new_trip_id = Trip.query.filter_by().count()
+
     create_trip = User_trip(trip_id=new_trip_id, user_id=session['user_id'])
 
     db.session.add(new_trip, create_trip)
     db.session.commit()
 
     return redirect('/home')
+
 
 if __name__ == '__main__':
     connect_to_db(app)

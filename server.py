@@ -117,7 +117,8 @@ def show_new_trip():
     found_user = User.query.filter_by(email=friends_email).all()
 
     if found_user:
-        friend_id = db.session.query(User.user_id).first()
+        # friend_id = db.session.query(User.user_id).first()
+        friend_id = found_user[0].user_id
         user_trip = crud.create_user_trip(user_id=friend_id, trip_id=new_id)
         flash("You're going places! You and your friends are going on a trip.")
     else:

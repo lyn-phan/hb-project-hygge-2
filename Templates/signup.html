@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+  <h2>Please create a profile.</h2>
+  <form action="/signup" method="POST" id="sign-up form">
+    <label for="first-name"> First Name:</label>
+    <input type="fname" name="fname">
+<br>
+    <label for="last-name"> Last Name:</label>
+    <input type="lname" name="lname">
+<br>
+    <label for="email"> Email: </label>
+    <input type="email" name="email">
+<br>
+    <label for="password"> Password: </label>
+    <input type="password" name="password">
+<br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Create profile
+    </button>
+  </form>
+{% endblock %}

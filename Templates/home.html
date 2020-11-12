@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Welcome!{% endblock %}
+
+{% block content %}
+  <h2>Welcome, {{session['fname']}}!</h2>
+  <p> Here are your trips:</p>
+  <ul>
+  <li>
+      {{ my_user_trip_name }}
+  </li>    
+  </ul>
+  <a href='/trips/new'>Create to create a new trip!</a> 
+{% endblock %}

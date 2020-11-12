@@ -111,7 +111,7 @@ def show_new_trip():
     db.session.add(new_trip)
     db.session.commit()
 
-    new_id = new_trip.trip_id'] 
+    new_id = new_trip.trip_id 
 
     user_trip = User_trip(trip_id=new_id, user_id=session['user_id'])
 

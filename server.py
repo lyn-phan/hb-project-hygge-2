@@ -95,16 +95,18 @@ def show_all_trips():
         # my_id = crud.get_user_id(email)
         try:
             joined_user_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id, Trip.trip_id).join(User).all()
+            print(joined_user_trips)
+            print("------------------------------------")
         except NoResultFound:
             joined_user_trips = None
         
         if joined_user_trips:
             this_user = session['user_id']
-            this_trip = User.query.get(Trip.trip_id).first()
+            this_trip = User.query.filter_by(trip_id=trip_id).first()
             print('this_trip:', this_trip)
             print("___________________________________________")
 
-            this_trip_name = Trip.query.get(trip_name).first()
+            this_trip_name = Trip.query.filter_by(trip_name=trip_name).first()
             print('this_trip_name:', this_trip_name)
             print("___________________________________________")
             for i in this_trip:

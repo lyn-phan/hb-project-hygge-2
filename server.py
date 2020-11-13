@@ -26,7 +26,7 @@ def login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    user = User.authenticate(fname, email, password)
+    user = crud.authenticate(fname, email, password)
 
     if user:
         session['email'] = user.email
@@ -51,7 +51,7 @@ def signup():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    found_user = User.query.filter_by(email=email).all()
+    found_user = crud.find_user(email)
 
     if found_user:
         message = "Welcome back! Please log in."

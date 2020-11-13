@@ -21,7 +21,7 @@ class User(db.Model):
     trip = db.relationship('Trip', secondary='user_trips', backref='users')
     
     def __repr__(self):
-        return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname}>'
+        return f'<user_id={self.user_id} fname={self.fname} lname={self.lname}>'
     
     @classmethod
     def authenticate(cls, fname, email, password):

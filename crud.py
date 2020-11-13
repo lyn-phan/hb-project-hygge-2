@@ -13,6 +13,16 @@ def create_user(fname, lname, email, password):
 
     return user
 
+def authenticate(fname, email, password):
+    user = User.authenticate(fname, email, password)
+
+    return user
+
+def find_user(email):
+    find_the_user = User.query.filter_by(email=email).all()
+
+    return find_the_user
+
 def create_trip(trip_name):
     """create and return new trip"""
     trip = Trip(trip_name=trip_name)
@@ -38,27 +48,15 @@ def get_trip_name(trip_id):
 
     return my_trip_name
 
-def get_user_id(user_):
-    my_user_id = db.session.query(User.user_id).first()
+def get_user_id(email):
 
-    return my_user_id
+    my_user_id = User.query.filter_by(email=email).first()
+    my_user_id = db.session.query(User.email)
+    return my_user_id    
 
 def get_trip_id():
-    """looks up trip_id
+    """looks up trip_id of the u
 
-
-
-# def adds_user_in_session():
-#     """ adds user_id in a session, and assigns user_trips to the current user """
-    
-#     joined_user_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id).join(User).all()
-# # joins User, Trip and User_trip tables
-#     user_id = session['user_id']
-#     # assigns user_id to the session
-#     current_user = User.query.get(session['user_id'])
-#     # looks up the the current user in session and assigns it to current_user
-
-#     # my_user_trip_name = current_user.trips
 
     
 if __name__ == '__main__':

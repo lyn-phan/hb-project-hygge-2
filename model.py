@@ -70,7 +70,7 @@ class User_trip(db.Model):
     user = db.relationship('User', backref='user_trips')
 
     def __repr__(self):
-        return f'<User_trip user_trip_id={self.user_trip_id}>'
+        return f'<User_trip user_trip_id={self.user_trip_id} trip_id={self.trip_id}>'
 
 class Event(db.Model):
     """track events on trip contributed by users"""

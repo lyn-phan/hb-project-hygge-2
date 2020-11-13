@@ -88,11 +88,28 @@ def show_home():
 
     return render_template('home.html', my_user_trip_name=my_user_trip_name)
 
-@app.route('/trips')
+@app.route('/trips/')
 def show_all_trips():
-    """shows a single trip that includes members invited, allows for edits and a button to create events """
-    
-    my_trips = crud.get_trip_name(trip_id)
+    """shows a list of trips able to edit"""
+    if 'email' in session:
+        # my_id = crud.get_user_id(email)
+        try:
+            joined_user_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id, Trip.trip_id).join(User).all()
+        except NoResultFound:
+            joined_user_trips = None
+        
+        if joined_user_trips:
+            this_user = session['user_id']
+            this_trip = User.query.get(Trip.trip_id).first()
+            print('this_trip:', this_trip)
+            print("___________________________________________")
+
+            this_trip_name = Trip.query.get(trip_name).first()
+            print('this_trip_name:', this_trip_name)
+            print("___________________________________________")
+            for i in this_trip:
+                print(this_trip)
+
 
     return render_template('trips.html', my_trips=my_trips)
      

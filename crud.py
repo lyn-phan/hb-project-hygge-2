@@ -44,20 +44,22 @@ def create_user_trip(user_id, trip_id):
 def get_trip_name(trip_id):
     """Looks up trip_name by trip_id"""
 
-    my_trip_name = Trip.query.filter_by(trip_id=trip_id).first()
-
+    my_trip = Trip.query.filter_by(trip_id=trip_id).first()
+    my_trip_name = my_trip.trip_name
     return my_trip_name
 
 def get_user_id(email):
 
-    my_user_id = User.query.filter_by(email=email).first()
-    # my_user_id = db.session.query(User.email)
+    my_user = User.query.filter_by(email=email).first()
+    my_user_id = my_user.user_id
+    
     return my_user_id    
 
-# def get_trip_id(trip_name):
-#     """looks up trip_id of the user"""
-#     my_trip_id = Trip.query.filter_by(trip_name=trip_name).first()
-#     return my_trip_id
+def get_trip_id(trip_name):
+    """looks up trip_id of the user"""
+    this_trip = Trip.query.filter_by(trip_name=trip_name).first()
+    this_trip_id = this_trip.trip_id
+    return this_trip_id
 
 def get_user_trip_info(user_id):
     my_trip_info = User_trip.query.filter_by(user_id=user_id).all()

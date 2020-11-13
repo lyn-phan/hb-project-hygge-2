@@ -80,17 +80,21 @@ def show_home():
     """displays user's homepage once logged in. This
     includes trips that a user is a part of"""
 
-    all_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id).join(User).all()
+    joined_user_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id).join(User).all()
 
     user_id = session['user_id']
     current_user = User.query.get(session['user_id'])
     my_user_trip_name = current_user.trips
-    
+
     return render_template('home.html', my_user_trip_name=my_user_trip_name)
 
 @app.route('/trips')
 def show_all_trips():
     """shows a single trip that includes members invited, allows for edits and a button to create events """
+    
+    my_trips = crud.get_trip_name(trip_id)
+
+    return render_template('trips.html', my_trips=my_trips)
      
 
 @app.route('/trips/new')

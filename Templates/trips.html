@@ -3,12 +3,11 @@
 
 {% block content %}
   <h2>{{session['fname']}}, let's edit your trips.</h2>
-  <a href='/trips/{user_trip_id}'> {{ </a> 
+  <!-- <a href='/trips/{{trip_id}}'> {{my_trips}} </a>  -->
   <ul>
       <li>
-          {{}}
+           <a href='/trips/{{trip_id}}'> {{my_trips}} </a> 
       </li> 
   </ul>
-
 </form>
 {% endblock %}

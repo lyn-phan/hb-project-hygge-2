@@ -31,7 +31,12 @@ def create_user_trip(user_id, trip_id):
 
     return user_trip
 
+def convert_tripid_name(trip_id):
+    """Looks up trip_name by trip_id"""
 
+    my_trip_name = Trip.query.filter_by(trip_id=trip_id).first()
+    return my_trip_name
+    
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)

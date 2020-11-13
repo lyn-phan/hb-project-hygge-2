@@ -84,7 +84,6 @@ def show_home():
 
     user_id = session['user_id']
     current_user = User.query.get(session['user_id'])
-    # my_user_trip_id = current_user.user_trips
     my_user_trip_name = current_user.trips
     
     return render_template('home.html', my_user_trip_name=my_user_trip_name)
@@ -92,7 +91,7 @@ def show_home():
 @app.route('/trips')
 def show_all_trips():
     """shows a single trip that includes members invited, allows for edits and a button to create events """
-    
+     
 
 @app.route('/trips/new')
 def show_new_trip_form():
@@ -111,13 +110,12 @@ def show_new_trip():
     new_trip = crud.create_trip(trip_name=trip_name)
 
     new_id = new_trip.trip_id 
-    user_trip = crud.create_user_trip(user_id=session['user_id'], trip_id=new_id,)
+    user_trip = crud.create_user_trip(user_id=session['user_id'], trip_id=new_id)
 
     friends_email = request.form.get('email')
     found_user = User.query.filter_by(email=friends_email).all()
 
     if found_user:
-        # friend_id = db.session.query(User.user_id).first()
         friend_id = found_user[0].user_id
         user_trip = crud.create_user_trip(user_id=friend_id, trip_id=new_id)
         flash("You're going places! You and your friends are going on a trip.")

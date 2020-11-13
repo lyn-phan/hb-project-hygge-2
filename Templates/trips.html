@@ -1,15 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Create a new trip{% endblock %}
+{% block title %}Edit trips{% endblock %}
 
 {% block content %}
-  <h2>{{session['fname']}}, let's create a new trip!</h2>
-<form action="/trips/new" method="POST" id=create_trip>
-<label for="trip_name"> Trip name: </label>
-<input type="trip_name" name="trip_name">
-<br>
-<!-- insert date /time -->
-<textarea id="email" name="email" placeholder="Enter a list of emails, one on each line"></textarea>
-<button class="btn btn-lg btn-primary btn-block" type="submit">Create Trip
-</button>
+  <h2>{{session['fname']}}, let's edit your trips.</h2>
+  <a href='/trips/{user_trip_id}'> {{ </a> 
+  <ul>
+      <li>
+          {{}}
+      </li> 
+  </ul>
+
 </form>
 {% endblock %}

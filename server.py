@@ -99,13 +99,20 @@ def show_all_trips():
             joined_user_trips = None
         
         if joined_user_trips:
-            this_user = session['user_id']
-            this_trip_name = crud.get_trip_name(crud.get_trip_id)
+            current_user = session['user_id']
+            current_users_trip_id = crud.get_trip_id(session['user_id'])
+            # current_users_trip_id prints [1,2,3]
+            all_trips = []
+            for my_trips in current_users_trip_id:
+                all_trip_names = crud.get_trip_name(current_users_trip_id)
+                print(all_trip_names)
+                print('-----------------------')
+                all_trips.append(all_trip_names)
 
-            for i in this_trip:
-                print(this_trip)
+            print(all_trips)
+            print('--------------------------------')
 
-    return render_template('trips.html', my_trips=my_trips)
+    return render_template('trips.html')
      
 
 @app.route('/trips/new')

@@ -55,17 +55,21 @@ def get_user_id(email):
     
     return my_user_id    
 
-def get_trip_id(trip_name):
+def get_trip_id(user_id):
     """looks up trip_id of the user"""
-    this_trip = Trip.query.filter_by(trip_name=trip_name).first()
-    this_trip_id = this_trip.trip_id
-    return this_trip_id
-
-def get_user_trip_info(user_id):
-    my_trip_info = User_trip.query.filter_by(user_id=user_id).all()
-    return my_trip_info
-
+    my_user_trip = User_trip.query.filter_by(user_id=user_id).all()
     
+    trip_ids = []
+
+    for user_trip_info in my_user_trip:
+        my_trip_ids = user_trip_info.trip_id
+        trip_ids.append(my_trip_ids)
+    
+    return trip_ids
+
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
+# [<User_trip user_trip_id=1 trip_id=1>, <User_trip user_trip_id=3 trip_id=2>, <User_trip user_trip_id=5 trip_id=3>]
+# animals = ["cat", "dog", "snake"]

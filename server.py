@@ -92,25 +92,25 @@ def show_home():
 def show_all_trips():
     """shows a list of trips able to edit"""
     if 'email' in session:
-        # my_id = crud.get_user_id(email)
-        try:
-            joined_user_trips = db.session.query(User.user_id, Trip.trip_name, User_trip.user_trip_id, Trip.trip_id).join(User).all()
-        except NoResultFound:
-            joined_user_trips = None
-        
-        if joined_user_trips:
-            current_user = session['user_id']
-            current_users_trip_id = crud.get_trip_id(session['user_id'])
+        current_user = session['user_id']
+        current_users_trip_id = crud.get_trip_id(session['user_id'])
             # current_users_trip_id prints [1,2,3]
-            all_trips = []
-            for my_trips in current_users_trip_id:
-                all_trip_names = crud.get_trip_name(current_users_trip_id)
-                print(all_trip_names)
+        all_trips = []
+        for current_trips in current_users_trip_id:
+            for my_current_trips in current_users_trip_id:
+                # each_trip_name = crud.get_trip_name(current_users_trip_id)
+                all_trips.append(each_trip_names)
+            #     all_my_trip_names = my_trips.all_trip_names
+                print(my_current_trips)
+                print('-----------------------------')
+                print(each_trip_name)
                 print('-----------------------')
-                all_trips.append(all_trip_names)
+            #     all_trips.append(all_my_trip_names)
 
             print(all_trips)
             print('--------------------------------')
+    else:
+        return redirect('/')
 
     return render_template('trips.html')
      

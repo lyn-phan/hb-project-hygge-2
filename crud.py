@@ -70,12 +70,16 @@ def get_trip_id(user_id):
 
 def return_attendees(trip_id):
     """looks up a trip via trip_id and returns attendees"""
-    user_trip_object = User_trip.query.filter_by(trip_id=trip_id).first()
-    attendee_id = user_trip_object.user_id
-    attendee = User.query.filter_by(user_id=attendee_id).first()
-    attendee_name = attendee.fname, attendee.lname
-    
-    return attendee_name
+    user_trip_object = User_trip.query.filter_by(trip_id=trip_id).all()
+    # #query User_trip to retrieve all user_Trip objects
+    attendee_list = []
+    for attendee in user_trip_object:
+        attendee_id = attendee.user_id
+        attendee = User.query.filter_by(user_id=attendee_id).first()
+        attendee_name = attendee.fname, attendee.lname
+        attendee_list.append(attendee_name)
+
+    return attendee_list
 
 if __name__ == '__main__':
     from server import app

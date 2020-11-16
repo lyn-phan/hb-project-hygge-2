@@ -44,7 +44,7 @@ def create_user_trip(user_id, trip_id):
 def get_trip_name(trip_id):
     """Looks up trip_name by trip_id"""
 
-    my_trip = Trip.query.get(trip_id)
+    my_trip = Trip.query.filter_by(trip_id=trip_id).first()
     my_trip_name = my_trip.trip_name
 
     return my_trip_name

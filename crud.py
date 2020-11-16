@@ -68,9 +68,15 @@ def get_trip_id(user_id):
     
     return trip_ids
 
+def return_attendees(trip_id):
+    """looks up a trip via trip_id and returns attendees"""
+    user_trip_object = User_trip.query.filter_by(trip_id=trip_id).first()
+    attendee_id = user_trip_object.user_id
+    attendee = User.query.filter_by(user_id=attendee_id).first()
+    attendee_name = attendee.fname, attendee.lname
+    
+    return attendee_name
 
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
-# [<User_trip user_trip_id=1 trip_id=1>, <User_trip user_trip_id=3 trip_id=2>, <User_trip user_trip_id=5 trip_id=3>]
-# animals = ["cat", "dog", "snake"]

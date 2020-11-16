@@ -1,10 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Edit my trips{% endblock %}
+{% block title %}We're going to {{ trip_name }}! {% endblock %}
 
 {% block content %}
+<h2> Attendees: </h2>
 <ul>
-    {% for name_of_trip in trip_name_list %}
-    <li> {{ name_of_trip }} </li>
-    {% endfor %}
+
 </ul>
 {% endblock %}

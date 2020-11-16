@@ -95,15 +95,25 @@ def show_all_trips():
         current_user = session['user_id']
         user_trip_id_list = crud.get_trip_id(session['user_id'])
 
-        trip_name_list =[]
-        for tripId in user_trip_id_list:
-            name = crud.get_trip_name(tripId)
-            trip_name_list.append(name)
-    else:
-        return redirect('/')
+    trip_name_list =[]
+    for tripId in user_trip_id_list:
+        name = crud.get_trip_name(tripId)
+        trip_name_list.append(name)
 
-    return render_template('trips.html', trip_name_list=trip_name_list)
+    return render_template('trips.html', trip_name_list=trip_name_list )
 
+@app.route('/trips/<trip_id>')
+def show_each_trip_page(trip_id):
+    """ shows each trip page from clicking on the name """
+    if 'email' in session:
+        current_user = session['user_id']
+        user_trip_id_list = crud.get_trip_id(session['user_id'])
+    trip_name_list =[]
+    for tripId in user_trip_id_list:
+        name = crud.get_trip_name(tripId)
+        trip_name_list.append(name)
+
+    return render_template('trip_details.html', trip_name_list=trip_name_list)
 
 @app.route('/trips/new')
 def show_new_trip_form():

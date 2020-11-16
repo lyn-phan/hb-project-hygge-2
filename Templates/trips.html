@@ -3,12 +3,9 @@
 
 {% block content %}
   <h2>{{session['fname']}}, let's edit your trips.</h2>
-  <ul>
-    <li>
-      <a href='{{trip_name_list}}'> {{trip_name_list}} </a>
-    </li>
-  </ul>
-
-  </ul>
-</form>
+      <ul>
+        {% for name_of_trip in trip_name_list %}
+        <li> <a href='{{trip_name_list}}'> {{name_of_trip}} </a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}

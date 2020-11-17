@@ -95,12 +95,12 @@ def show_all_trips():
         current_user = session['user_id']
         user_trip_id_list = crud.get_trip_id(session['user_id'])
 
-    trip_name_list =[]
+    trip_objects_list =[]
     for tripId in user_trip_id_list:
-        name = crud.get_trip_name(tripId)
-        trip_name_list.append(name)
+        trip_objects = crud.get_trip_objects(tripId) # POPULATE THIS LIST WITH TRIP OBJECTS
+        trip_objects_list.append(trip_objects)
 
-    return render_template('trips.html', trip_name_list=trip_name_list )
+    return render_template('trips.html', trip_objects_list=trip_objects_list)
 
 @app.route('/trips/<trip_id>')
 def show_each_trip_page(trip_id):
@@ -108,8 +108,8 @@ def show_each_trip_page(trip_id):
     destination = crud.get_trip_name(trip_id)
     trip_attendees = crud.return_attendees(trip_id)
 
-    return render_template('trip_details.html', trip_attendees=trip_attendees, destination=destination)
-
+    return render_template('trip_details.html', trip_id=trip_id, trip_attendees=trip_attendees, destination=destination)
+    #return redirect(f'/trips/{trip_id}')
 @app.route('/trips/<trip_id>', methods=['POST'])
 def add_friend_to_trip(trip_id):
     destination = crud.get_trip_name(trip_id)

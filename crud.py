@@ -50,6 +50,13 @@ def get_trip_name(trip_id):
 
     return my_trip_name
 
+def get_trip_objects(trip_id):
+    """looks up and returns trip object"""
+
+    my_trip = Trip.query.filter_by(trip_id=trip_id).first()
+
+    return my_trip
+
 def get_user_id(email):
 
     my_user = User.query.filter_by(email=email).first()

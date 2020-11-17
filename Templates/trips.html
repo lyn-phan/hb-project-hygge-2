@@ -4,8 +4,8 @@
 {% block content %}
   <h2>{{session['fname']}}, let's edit your trips.</h2>
       <ul>
-        {% for name_of_trip in trip_name_list %}
-        <li> <a href='{{trip_name_list}}'> {{name_of_trip}} </a></li>
+        {% for name_of_trip in trip_objects_list %}
+        <li> <a href='/trips/{{name_of_trip.trip_id}}'> {{name_of_trip}} </a></li>    
         {% endfor %}
     </ul>
 {% endblock %}

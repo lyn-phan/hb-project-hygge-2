@@ -109,28 +109,21 @@ def show_each_trip_page(trip_id):
     trip_attendees = crud.return_attendees(trip_id)
 
     return render_template('trip_details.html', trip_id=trip_id, trip_attendees=trip_attendees, destination=destination)
-    #return redirect(f'/trips/{trip_id}')
+
 @app.route('/trips/<trip_id>', methods=['POST'])
 def add_friend_to_trip(trip_id):
     destination = crud.get_trip_name(trip_id)
-    print('destination:', destination)
-    print('------------------------')
-
     new_email = request.form.get('email')
-    print('new_email:', new_email)
-    print('---------------------------')
     found_invite = crud.find_user(email=new_email)
-    print('found invite:', found_invite)
-    print('--------------------------')
 
     if found_invite:
-        found_id = crud.get_user_id(email=found_invite)
+        found_id = crud.get_user_id(email=new_email)
         add_friend_to_trip = crud.create_user_trip(user_id=found_id, trip_id=trip_id)
-        flash("You and f{found_invite} are going to f{destination}!")
+        flash(f"You and {found_invite} are going to {destination}!")
     else:
         flash("Sorry, your friend hasn't signed up yet.")
     
-    return redirect('/trips/')
+    return redirect(f'/trips/{trip_id}')
 
 @app.route('/trips/new')
 def show_new_trip_form():

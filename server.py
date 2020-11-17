@@ -117,14 +117,16 @@ def add_friend_to_trip(trip_id):
     print('------------------------')
 
     new_email = request.form.get('email')
-    found_friend = crud.find_user(email=new_email)
-    print('found friend:', found_friend)
+    print('new_email:', new_email)
+    print('---------------------------')
+    found_invite = crud.find_user(email=new_email)
+    print('found invite:', found_invite)
     print('--------------------------')
 
-    if found_friend:
-        found_friend_id = crud.get_user_id(email=found_friend)
-        add_friend_to_trip = crud.create_user_trip(user_id=found_friend_id, trip_id=trip_id)
-        flash("You and f{found_friend} are going to f{destination}!")
+    if found_invite:
+        found_id = crud.get_user_id(email=found_invite)
+        add_friend_to_trip = crud.create_user_trip(user_id=found_id, trip_id=trip_id)
+        flash("You and f{found_invite} are going to f{destination}!")
     else:
         flash("Sorry, your friend hasn't signed up yet.")
     

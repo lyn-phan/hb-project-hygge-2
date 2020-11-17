@@ -1,9 +1,21 @@
 {% extends "base.html" %}
-{% block title %}We're going to {{ trip_name }}! {% endblock %}
+{% block title %} We're going to {{ destination }}! {% endblock %}
 
 {% block content %}
-<h2> Attendees: </h2>
+<h3> Attendees: </h3>
 <ul>
-
+<li> {{ trip_attendees }}</li>
+ <br>   
+<p>Invite a friend along:</p>   
+<form action="/trips/<trip_id>" method="POST" id=find_user>
+ <li><label>First name: </label> 
+    <input type="text" name="first name"> </li>  
+<li><label>Last name: </label> 
+    <input type="text" name="last name"> </li>  
+<li> <label>Email: </label> 
+    <input type="text" name="email"> </li>  
+    <label>Add to trip!</label>
+    <input type="submit">
+</form>
 </ul>
 {% endblock %}

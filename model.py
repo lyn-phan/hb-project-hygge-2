@@ -11,10 +11,10 @@ class User(db.Model):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    email = db.Column(db.String(30))
-    fname = db.Column(db.String(20))
-    lname = db.Column(db.String(20))
-    password = db.Column(db.String(20))
+    email = db.Column(db.String(30), nullable = False)
+    fname = db.Column(db.String(20), nullable = False)
+    lname = db.Column(db.String(20), nullable = False)
+    password = db.Column(db.String(20), nullable = False)
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 

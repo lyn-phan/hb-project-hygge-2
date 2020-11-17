@@ -19,9 +19,10 @@ def authenticate(fname, email, password):
     return user
 
 def find_user(email):
-    find_the_user = User.query.filter_by(email=email).all()
+    find_the_user = User.query.filter_by(email=email).first()
+    existing_user = find_the_user.fname, find_the_user.lname
 
-    return find_the_user
+    return existing_user
 
 def create_trip(trip_name):
     """create and return new trip"""

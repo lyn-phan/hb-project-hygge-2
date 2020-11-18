@@ -3,7 +3,7 @@
 
 {% block content %}
   <h2>{{session['fname']}}, what should we do on your trip?</h2>
-<form action="/trips/<trip_id>/event/new" method="POST" id=create_event>
+<form action="/trips/{{trip_id}}/event/new" method="POST" id=create_event>
 <label for="event_name"> Event name: </label>
 <input type="event_name" name="event_name">
 <br>

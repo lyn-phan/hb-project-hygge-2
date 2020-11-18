@@ -128,24 +128,24 @@ def add_friend_to_trip(trip_id):
 @app.route('/trips/<trip_id>/event/new')
 def show_event_details(trip_id):
     """shows the details of the events page"""
+    destination = crud.get_trip_name(trip_id)
 
-    return render_template('new_event.html')
+    return render_template('new_event.html', destination=destination, trip_id=trip_id)
 
 @app.route('/trips/<trip_id>/event/new', methods=['POST'])
 def create_new_event(trip_id):
     """shows a form to create a new event and adds it to trip_details page"""
-    if session['user_id']:
-        current_trip_id = crud.get_trip_id(session['user_id'])
+    destination = crud.get_trip_name(trip_id)
 
-    event_name = request.form.get('event_name')
-    new_event_object = crud.create_event(trip_id=current_trip_id, event_name=event_name)
+    name_of_event = request.form.get('event_name')
+    new_event_object = crud.create_event(trip_id=trip_id, event_name=name_of_event)
 
     if new_event_object:
-        flash(f"You've added {event_name} to your trip.")
+        flash(f"You've added {name_of_event} to your trip to {destination}.")
     else:
         flash("Sorry, we couldn't add your trip. Please try again.")
 
-    return render_template('new_event.html', event_name=event_name, )
+    return redirect(f'/trips/{trip_id}/event/new')
 
 @app.route('/trips/new')
 def show_new_trip_form():

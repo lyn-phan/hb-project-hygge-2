@@ -76,12 +76,6 @@ def get_trip_id(user_id):
     
     return trip_ids
 
-def get_current_trip_id(user_id):
-    """looks up current single trip that belongs to the user in session"""
-    single_trip_id = User_trip.query.filter_by(user_id=user_id).first()
-    single_id = single_trip_id.trip_id
-
-    return single_id
 
 def return_attendees(trip_id):
     """looks up a trip via trip_id and returns attendees"""

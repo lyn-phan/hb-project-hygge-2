@@ -125,10 +125,19 @@ def add_friend_to_trip(trip_id):
     
     return redirect(f'/trips/{trip_id}')
 
+# @app.route('/trips/<trip_id>/event')
+def show_event_details():
+    """shows the details of the events page"""
+
+@app.route('/trips/<trip_id>/event/new')
+def show_new_events():
+    """shows a form to create a new event and adds it to trip_details page"""
+
+    return render_template('new_event.html')
+
 @app.route('/trips/new')
 def show_new_trip_form():
-    """shows form to add a new trip. This form sends to
-    /trips"""
+    """shows form to add a new trip. This form sends to /trips"""
 
     return render_template('new_trips.html')
 

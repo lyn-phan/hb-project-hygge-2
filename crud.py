@@ -89,6 +89,15 @@ def return_attendees(trip_id):
 
     return attendee_list
 
+def create_event(trip_id, event_name):
+    """creates a trip from the events form by passing in a trip_name and trip_id"""
+    event = Event(trip_id=trip_id, event_name=event_name)
+
+    db.session.add(event)
+    db.session.commit()
+
+    return event
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)

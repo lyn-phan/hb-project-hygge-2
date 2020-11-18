@@ -2,11 +2,10 @@
 {% block title %} We're going to {{ destination }}! {% endblock %}
 
 {% block content %}
-<h3> Attendees: </h3>
+<h4> Attendees: </h4>
 <ul>
 <li> {{ trip_attendees }}</li>
- <br>   
-<p>Invite a friend along:</p>   
+<h4>Invite a friend to your trip:</h4>   
 <form action="/trips/{{ trip_id }}" method="POST" id=find_user>
  <li><label>First name: </label> 
     <input type="text" name="first name"> </li>  
@@ -14,8 +13,15 @@
     <input type="text" name="last name"> </li>  
 <li> <label>Email: </label> 
     <input type="text" name="email"> </li>  
-    <label>Add to trip!</label>
     <input type="submit">
 </form>
 </ul>
+<h4> Events </h4>
+<ul>
+   <li>
+
+   </li> 
+</ul>
+<a href="/trips/{{trip_id}}/events/new">Add New Event</a>
+
 {% endblock %}

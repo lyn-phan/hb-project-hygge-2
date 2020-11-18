@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Create a new event for your trip{% endblock %}
+
+{% block content %}
+  <h2>{{session['fname']}}, what should we do on your trip?</h2>
+<form action="/trips/{{trip_id}}/event/new" method="POST" id=create_event>
+<label for="event_name"> Event name: </label>
+<input type="event_name" name="event_name">
+<br>
+<!-- insert date /time -->
+<textarea id="event_info" name="event" placeholder="Describe event"></textarea>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Create Event
+</button>
+</form>
+{% endblock %}

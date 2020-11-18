@@ -146,6 +146,7 @@ def create_new_event(trip_id):
         flash("Sorry, we couldn't add your trip. Please try again.")
 
     return redirect(f'/trips/{trip_id}/event/new')
+    #TODO: udpate this route tomorrow
 
 @app.route('/trips/new')
 def show_new_trip_form():

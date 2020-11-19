@@ -1,14 +1,13 @@
-// "use strict";
+"use strict";
 
-// // // invite other emails onto trip
-// // const createDivsForEmails = (email) => {
-// //     for (const )
+// add events to trip page
+const addEvents = (event_name) => {
+    $('#events_list').append(event_name);
+};
 
-// // }
+// Event handlers
 
-// const returnButton = document.querySelector('#backToTrip');
-
-// returnButton.on('click', () => {
-
-// }
-// )
+$('#create_event').on('click', () => {
+    // addEvents('event_name');
+    console.log('this works!')
+});

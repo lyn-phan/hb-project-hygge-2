@@ -1,13 +1,15 @@
 "use strict";
 
-// add events to trip page
-const addEvents = (event_name) => {
-    $('#events_list').append(event_name);
-};
+function addEvents (evt) {
+    evt.preventDefault();
 
-// Event handlers
+    $.get('/trips/<trip_id>', (res) =>{
+        let eventList = '';
+        $('#events_list').append(`
+        <label for="event_name"> Event name: </label>
+        <input type="event_name" name="event_name">`)
+        console.log('hi! I am here!')
+    })};
 
-$('#create_event').on('click', () => {
-    // addEvents('event_name');
-    console.log('this works!')
-});
+
+$('#event-adder').on('click', addEvents);

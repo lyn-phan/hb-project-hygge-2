@@ -21,5 +21,20 @@
     <span id="events_list">
     </span>
 </div>
-<a href="/trips/{{trip_id}}/event/new">Add New Event</a>
+<!-- <input type=button onclick="location.href='/trips/{{trip_id}}/event/new'" value="Add new event"> -->
+
+<button id="event-adder"> Add an event </button>
+<!-- new below here -->
+<!-- 
+<form action="/trips/{{trip_id}}/event/new" method="POST" id=create_event>
+<label for="event_name"> Event name: </label>
+<input type="event_name" name="event_name">
+<br>
+
+<textarea id="event_info" name="event" placeholder="Describe event"></textarea>
+<button class="create_event" type="submit">Create Event
+</button>
+
+<input type=button onclick="location.href='/trips/{{trip_id}}'" value= "Go back to trip page"> -->
+
 {% endblock %}

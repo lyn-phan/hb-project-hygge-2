@@ -1,6 +1,6 @@
 """Server for Project Hygge app."""
 
-from flask import Flask, render_template, request, flash, session, redirect, flash
+from flask import Flask, render_template, request, flash, session, redirect, flash, jsonify
 from model import User, Trip, User_trip, Event, connect_to_db, db
 import crud 
 import sqlalchemy
@@ -125,6 +125,29 @@ def add_friend_to_trip(trip_id):
     
     return redirect(f'/trips/{trip_id}')
 
+    ##############
+    ##TEST JSON###
+    ##############
+@app.route('/trips/add-trip-event', methods=['POST'])
+def add_trip_event():
+    print(request.form.get('eventData'))
+    print('--------------------------------')
+
+    return 'hello'
+
+
+@app.route('/trips/<trip_id>')
+def get_user_and_trip_id():
+    return jsonify(userId = users.user_id, tripId= trips.trip_id)
+
+@app.route('/event-info.json')
+def get_event_info():
+    """get event info"""
+    eventName = request.args.get(event_name)
+    eventInfo = request.args.get(event_info)
+
+    return jsonify()
+##########################################################
 @app.route('/trips/<trip_id>/event/new')
 def show_event_details(trip_id):
     """shows the details of the events page"""

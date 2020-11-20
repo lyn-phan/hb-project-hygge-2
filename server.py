@@ -132,8 +132,6 @@ def add_friend_to_trip(trip_id):
 def add_trip_event():
     """grabs the data from addEventForm in trip_details.js file"""
     new_event_to_add = request.form.get('eventFormInput')
-    print(new_event_to_add)
-    print('--------------------------------')
     
     return new_event_to_add
 

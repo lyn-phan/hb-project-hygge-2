@@ -114,6 +114,7 @@ def show_each_trip_page(trip_id):
 
 @app.route('/trips/<trip_id>', methods=['POST'])
 def add_friend_to_trip(trip_id):
+    """post request for adding a friend form"""
     destination = crud.get_trip_name(trip_id)
     new_email = request.form.get('email')
     found_invite = crud.find_user(email=new_email)
@@ -129,6 +130,7 @@ def add_friend_to_trip(trip_id):
 
 @app.route('/trips/add-trip-event', methods=['POST'])
 def add_trip_event():
+    """grabs the data from addEventForm in trip_details.js file"""
     new_event_to_add = request.form.get('eventFormInput')
     print(new_event_to_add)
     print('--------------------------------')

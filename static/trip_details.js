@@ -16,5 +16,5 @@ $('#add-event-button').on('click', () => {
             console.log(res)
         })}
     )});
-               // eventData --> where form input will go
+            // eventFormInput --> where form input will go
             // grab with request.form.get in server

@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.secret_key = "wanderlust"
 app.jinja_env.undefined = StrictUndefined
 
+######## NAVIGATION ##############
 @app.route('/')
 def homepage():
     """ View Homepage """
@@ -88,6 +89,7 @@ def show_home():
 
     return render_template('home.html', my_user_trip_name=my_user_trip_name)
 
+############### TRIPS ####################
 @app.route('/trips/')
 def show_all_trips():
     """shows a list of trips able to edit"""
@@ -125,28 +127,14 @@ def add_friend_to_trip(trip_id):
     
     return redirect(f'/trips/{trip_id}')
 
-    ##############
-    ##TEST JSON###
-    ##############
 @app.route('/trips/add-trip-event', methods=['POST'])
 def add_trip_event():
-    print(request.form.get('eventData'))
+    new_event_to_add = request.form.get('eventFormInput')
+    print(new_event_to_add)
     print('--------------------------------')
+    
+    return new_event_to_add
 
-    return 'hello'
-
-
-@app.route('/trips/<trip_id>')
-def get_user_and_trip_id():
-    return jsonify(userId = users.user_id, tripId= trips.trip_id)
-
-@app.route('/event-info.json')
-def get_event_info():
-    """get event info"""
-    eventName = request.args.get(event_name)
-    eventInfo = request.args.get(event_info)
-
-    return jsonify()
 ##########################################################
 @app.route('/trips/<trip_id>/event/new')
 def show_event_details(trip_id):

@@ -165,8 +165,6 @@ def show_new_trip_form():
 
     return render_template('new_trips.html')
 
-    # TODO: trip_date = request.form.get('trip_date') #deal with datetime later
-    
 @app.route('/trips/new', methods=['POST'] )
 def show_new_trip():
     """retrieves data from new_trip form and creates new trip and adds to database """

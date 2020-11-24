@@ -132,8 +132,9 @@ def add_friend_to_trip(trip_id):
 def add_trip_event():
     """grabs the data from addEventForm in trip_details.js file"""
     new_event_to_add = request.form.get('eventFormInput')
+    event_date = request.form.get('eventDateInput')
     
-    return new_event_to_add
+    return new_event_to_add, event_date
 
 ##########################################################
 @app.route('/trips/<trip_id>/event/new')

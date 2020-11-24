@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="/static/dtsel.css" />
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tui-calendar/1.12.14/tui-calendar.min.js" integrity="sha512-1BmEWbs8aAmzCi9U/YpySsgQx+3t6KXtJ1Q29aZnEIerc0/4rlXgUDnai43R4s66cJEqXjlpYZrqK6EdKTc/ZQ==" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tui-calendar/1.12.14/tui-calendar.min.js" integrity="sha512-1BmEWbs8aAmzCi9U/YpySsgQx+3t6KXtJ1Q29aZnEIerc0/4rlXgUDnai43R4s66cJEqXjlpYZrqK6EdKTc/ZQ==" crossorigin="anonymous"></script> -->
       {% block title %}<title>Let's go somewhere together. </title>{% endblock %}
 
-    <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
+    <!-- <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
     <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
     <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
-    <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
-
+    <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script> -->
   </head>
   <body>
     {% for msg in get_flashed_messages() %}
@@ -19,5 +19,6 @@
   {% endfor %}
     {% block content %} {% endblock %}
   <script src="/static/trip_details.js"></script>
+  <script src="/static/dtsel.js"></script>
   </body>
 </html>

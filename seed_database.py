@@ -29,7 +29,8 @@ def seed_user_trip(db):
 
     event = Event(event_id = 1,
                  trip_id = 1,
-                 event_name = 'Summer 2020')
+                 event_name = 'Summer 2020',
+                  event_date = '2020-12-01')
     
     db.session.add(user)
     db.session.add(trip)

@@ -1,5 +1,6 @@
 "use strict";
 
+
 $('#create-event-button').on('click', () => {
     // onClick renders the form from Trip_Details
         $('#events_list').append(`
@@ -27,3 +28,7 @@ $('#create-event-button').on('click', () => {
     // TODO: get the event to add in database. print to Events list rather
     // than just to the console 
  
+
+
+
+

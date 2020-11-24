@@ -16,7 +16,7 @@ def create_user(fname, lname, email, password):
 def authenticate(fname, email, password):
     user = User.authenticate(fname, email, password)
 
-    return user
+    print(user)
 
 def find_user(email):
     find_the_user = User.query.filter_by(email=email).first()
@@ -98,6 +98,13 @@ def create_event(trip_id, event_name):
     db.session.commit()
 
     return event
+
+def add_datetime(event_date):
+    """creates date for an event"""
+    eventDate = Event(event_date=event_date)
+
+    db.session.add(eventDate)
+    db.sessin.commit()
 
 if __name__ == '__main__':
     from server import app

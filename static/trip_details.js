@@ -14,7 +14,10 @@ $('.create-event-button').on('click', (evt) => {
         <textarea id="eventDescription" name="eventDescription" placeholder="Describe event"></textarea>
         <input type="submit" id=${idOfTrip} name="eventDetails" class ="submit-event">
         </form>`);
-        var instance = new dtsel.DTS('input[name="dateTimePicker"]'); 
+        var instance = new dtsel.DTS('input[name="dateTimePicker"]', 
+        {dateFormat: "YYYY-MM-DD",
+        timeFormat: "Thh:mmTZD" 
+    });
     $('.submit-event').on('click',(evt) => {
         // onClick, goes to server and grabs data from form and adds to dictionary
         evt.preventDefault();

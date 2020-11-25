@@ -25,25 +25,14 @@ $('.create-event-button').on('click', (evt) => {
         const formDateValue = $('#dateTimePicker').val();
         const formDescriptionValue = $('#eventDescription').val();
         $.post(`/trips/${idOfTrip}/add-trip-event`, {'eventFormInput': formInputValue, 'eventDateInput': formDateValue, 'eventDescriptionInput': formDescriptionValue}, (res) => {
-            // $('#results').append(`<li>${res.new_event_name} | ${res.new_event_date} </li>`);
-        console.log(res);
+            $('#results').append(`<li>${res.new_event_name} | ${res.new_event_date} </li>`);
+            console.log(res);
         });
         document.getElementById("events_list").innerHTML = '';
     })
     });
 
-    // TODO: get the event to add in database. print to Events list rather
-    // than just to the console 
- 
-// $('#submit-event').on('click',(evt) => {
-//         // onClick, goes to server and grabs data from form and adds to dictionary
-//     evt.preventDefault();
-//     const formInputValue = $('#newEventName').val();
-//     const formDateValue = $('#dateTimePicker').val();
-//     const formDescriptionValue = $('#eventDescription')
-//     $.post('/trips/add-trip-event', {eventFormInput: formInputValue, eventDateInput: formDateValue, eventDescriptionInput: formDescriptionValue}, (res) => {
-//         $('#results').append(`<li>${res.new_event_name} | ${res.new_event_date} </li>`);
-//     });
+
 //     // document.getElementById("events_list").innerHTML = '';
 //     });
 

@@ -1,34 +1,51 @@
 "use strict";
 
 
-$('#create-event-button').on('click', () => {
+$('.create-event-button').on('click', (evt) => {
     // onClick renders the form from Trip_Details
+    const idOfTrip = ($(evt.target)[0].id)
+    console.log(idOfTrip);
         $('#events_list').append(`
         <form>
-        <label for="new-event-input"> Event name:</label>
-        <input type="text" id="new-event-input"></input>
+        <label for="newEventName"> Event name:</label>
+        <input type="text" id="newEventName"></input>
         <label for="dateTimePicker"> Date:</label>
         <input name="dateTimePicker" id="dateTimePicker"></input>
-        <textarea id="event_info" name="event" placeholder="Describe event"></textarea>
-        <input type="submit" name="event-name" id="submit-event">
+        <textarea id="eventDescription" name="eventDescription" placeholder="Describe event"></textarea>
+        <input type="submit" id=${idOfTrip} name="eventDetails" class ="submit-event">
         </form>`);
         var instance = new dtsel.DTS('input[name="dateTimePicker"]'); 
-    $('#submit-event').on('click',(evt) => {
+    $('.submit-event').on('click',(evt) => {
         // onClick, goes to server and grabs data from form and adds to dictionary
         evt.preventDefault();
-        const formInputValue = $('#new-event-input').val();
+        const idOfTrip = ($(evt.target)[0].id);
+        console.log(idOfTrip);
+        console.log(evt);
+        const formInputValue = $('#newEventName').val();
         const formDateValue = $('#dateTimePicker').val();
-        $.post('/trips/add-trip-event', {eventFormInput: formInputValue, eventDateInput: formDateValue }, (res) => {
-            $('#results').append(`<li>${res.eventFormInput} | ${res.eventDateInput} </li>`);
+        const formDescriptionValue = $('#eventDescription').val();
+        $.post(`/trips/${idOfTrip}/add-trip-event`, {'eventFormInput': formInputValue, 'eventDateInput': formDateValue, 'eventDescriptionInput': formDescriptionValue}, (res) => {
+            // $('#results').append(`<li>${res.new_event_name} | ${res.new_event_date} </li>`);
+        console.log(res);
         });
         document.getElementById("events_list").innerHTML = '';
-    }
-    )});
+    })
+    });
 
     // TODO: get the event to add in database. print to Events list rather
     // than just to the console 
  
-
+// $('#submit-event').on('click',(evt) => {
+//         // onClick, goes to server and grabs data from form and adds to dictionary
+//     evt.preventDefault();
+//     const formInputValue = $('#newEventName').val();
+//     const formDateValue = $('#dateTimePicker').val();
+//     const formDescriptionValue = $('#eventDescription')
+//     $.post('/trips/add-trip-event', {eventFormInput: formInputValue, eventDateInput: formDateValue, eventDescriptionInput: formDescriptionValue}, (res) => {
+//         $('#results').append(`<li>${res.new_event_name} | ${res.new_event_date} </li>`);
+//     });
+//     // document.getElementById("events_list").innerHTML = '';
+//     });
 
 
 

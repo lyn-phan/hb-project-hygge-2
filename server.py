@@ -49,23 +49,14 @@ def show_login():
 def signup():
     """add a user to the database"""
 
+    fname = request.form.get('fname')
+    lname = request.form.get('lname')
     email = request.form.get('email')
     password = request.form.get('password')
 
-    found_user = crud.find_user(email)
+    user = crud.create_user(fname=fname, lname=lname, email=email, password=password)
 
-    if found_user:
-        message = "Welcome back! Please log in."
-    
-    else:
-        fname = request.form.get('fname')
-        lname = request.form.get('lname')
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        user = crud.create_user(fname=fname, lname=lname, email=email, password=password)
-
-        message = f'Thanks for signing up, {fname}! Please log in to get started.'
+    message = f'Thanks for signing up, {fname}! Please log in to get started.'
     
     flash(message)
     return redirect('/')
@@ -126,17 +117,24 @@ def add_friend_to_trip(trip_id):
     else:
         flash("Sorry, your friend hasn't signed up yet.")
     
-    return redirect(f'/trips/{trip_id}')
+    return redirect(f'/trips/{trip_id}') # return redirect('/trips/add-trip-event')
 
-@app.route('/trips/add-trip-event', methods=['POST'])
-def add_trip_event():
+@app.route('/trips/<trip_id>/add-trip-event', methods=['POST'])
+def add_trip_event(trip_id):
     """grabs the data from addEventForm in trip_details.js file"""
-    new_event_to_add = request.form.get('eventFormInput')
+
+    new_event_name = request.form.get('eventFormInput')
     new_event_date = request.form.get('eventDateInput')
+    new_event_details = request.form.get('eventDescriptionInput')
 
-    add_eventday = crud.add_datetime(event_date=new_event_date)
+    data = {'new_event_name': new_event_name, 'new_event_date': new_event_date, 'new_event_details': new_event_details}
 
-    return 
+    newEvent = crud.create_event(trip_id=trip_id, event_name=new_event_name, event_date=new_event_date, event_details=new_event_details)
+
+    # return render_template('trip_details.html')
+    return jsonify(data)
+
+    # return redirect(f'/trips/{trip_id}')  # return redirect(f'/trips/{trip_id}', newEvent=newEvent)
 
 
 ##########################################################

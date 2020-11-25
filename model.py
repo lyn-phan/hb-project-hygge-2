@@ -81,6 +81,7 @@ class Event(db.Model):
     event_name = db.Column(db.String(20))
     trip_id = db.Column(db.Integer, db.ForeignKey('trips.trip_id'))
     event_date = db.Column(db.DateTime)
+    event_details = db.Column(db.String(80))
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 

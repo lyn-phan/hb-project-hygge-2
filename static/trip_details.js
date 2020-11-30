@@ -18,7 +18,7 @@ $('.create-event-button').on('click', (evt) => {
         {dateFormat: "YYYY-MM-DD",
         timeFormat: "Thh:mmTZD" 
     });
-    $('.submit-event').on('click',(evt) => {
+    $('.submit-event').on('click', (evt) => {
         // onClick, goes to server and grabs data from form and adds to dictionary
         evt.preventDefault();
         const idOfTrip = ($(evt.target)[0].id);
@@ -35,6 +35,16 @@ $('.create-event-button').on('click', (evt) => {
     })
     });
 
+$('.add-to-cal').on('click', (evt) => {
+    // onClick - grab evenut input and add to cal
+    evt.preventDefault();
+    const formInputValue = $('#newEventName').val();
+    const idOfTrip = ($(evt.target)[0].id);
+    $.post(`/trips/${idOfTrip}/add-trip-event`, {'eventFormInput': formInputValue, 'eventDateInput': formDateValue}, (res) => {
+        $('#results').append(`<li>${res.new_event_name}</li>`);
+        console.log(res);
+    });
+});
 
 //     // document.getElementById("events_list").innerHTML = '';
 //     });

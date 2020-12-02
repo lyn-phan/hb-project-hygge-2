@@ -180,7 +180,6 @@
          * taskTitle: function() {...}
          * alldayTitle: function() {...}
         */
-  
         return getGridTitleTemplate(viewName);
       },
       schedule: function(schedule) {
@@ -190,7 +189,6 @@
          * task: function() {...}
          * allday: function() {...}
         */
-  
         return getGridCategoryTemplate(schedule.category, schedule);
       }
     };
@@ -200,8 +198,8 @@
       template: templates
     });
   
-    var scheduleArray = {};
-    cal.createSchedules([{ scheduleArray
+    var scheduleArray = [];
+    cal.createSchedules([{ 
           // id: '1',
           // calendarId: '1',
           // title: 'my schedule',
@@ -211,21 +209,22 @@
           // end: '2020-12-05T22:30:00+09:00'
       }]);
 
-      function createCalendarEvent(options) {
-        id= "1",
-        calendarId = '',
-        title= "options.event_name",
-        category= "allday",
-        dueDateClass= " ",
-        start= "options.event_date",
-        end= "options.event_date"
+    function createCalendarEvent(options) {
+      const eventInfo = {
+      id: "1",
+      calendarId: "1",
+      title: options.title,
+      category: "allday",
+      dueDateClass: " ",
+      start: `${options.start}T22:30:00+09:00`,
+      end: `${options.start}T22:30:00+09:00`
       }
-      scheduleArray.push({
-        title: options.event_name,
-        start: options.event_date,
-        end: options.event_date
-      });
+      console.log(eventInfo)
+      scheduleArray.push(eventInfo)
       cal.createSchedules(scheduleArray);
+    }
+
+      // cal.createSchedules(scheduleArray);
   // function createCalendarEvent(options) {
     // id = (modify server.py to return ID as well in response? OR just use a num increment?)
     // title = options.event_name

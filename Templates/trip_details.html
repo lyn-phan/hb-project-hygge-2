@@ -37,7 +37,6 @@
 <button class="create-event-button" id="{{ trip_id }}" name ="create-event-button" type="submit"> Create Event </button>
 <br>
 <!-- start of calendar -->
-<button class="add-to-cal" id="add-to-cal" name ="add-to-cal" type="submit"> Add event to calendar </button>
 <div id="menu">
     <span id="menu-navi">
       <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
@@ -201,26 +200,50 @@
       template: templates
     });
   
-    var scheduleArray = [];
-    cal.createSchedules(scheduleArray);
-  
-    // ([
-    // {
+    var scheduleArray = {};
+    cal.createSchedules([{ scheduleArray
           // id: '1',
           // calendarId: '1',
           // title: 'my schedule',
           // category: 'allday',
           // dueDateClass: '',
-          // start: '2020-11-30T22:30:00+09:00', 
-          // end: '2020-11-30T22:30:00+09:00'
-          // // '2020-12-04T02:30:00+09:00'
-      // }
-  
-    // ]);
-  
+          // start: '2020-12-04T22:30:00+09:00', 
+          // end: '2020-12-05T22:30:00+09:00'
+      }]);
+
+      function createCalendarEvent(options) {
+        id= "1",
+        calendarId = '',
+        title= "options.event_name",
+        category= "allday",
+        dueDateClass= " ",
+        start= "options.event_date",
+        end= "options.event_date"
+      }
+      scheduleArray.push({
+        title: options.event_name,
+        start: options.event_date,
+        end: options.event_date
+      });
+      cal.createSchedules(scheduleArray);
+  // function createCalendarEvent(options) {
+    // id = (modify server.py to return ID as well in response? OR just use a num increment?)
+    // title = options.event_name
+    // start = options.event_date (set a standard time? midnight to noon?)
+    // end = options.event_date
+    // fill in other attributes as needed (or leave them empty string)
+    // scheduleArray.push({
+      // title: title, -> could also title: options.event_name
+      // start: start,
+      // end: end,
+      // **more attr as needed **
+    // })
+    // cal.createSchedules(scheduleArray); 
+  // }
+
       </script>
          
-    <script src="/static/trip_details.js"></script>
+    <script src="/static/js/trip_details.js"></script>
     </body>
   </html>
 {% endblock %}

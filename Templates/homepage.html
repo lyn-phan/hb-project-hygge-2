@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Let's go somewhere together.</h1>
-
-  <h2>Navigation</h2>
-  <ul>
-    <li><a href="/login">Log in</a></li>
-  </ul>
-  <ul>
-    <li><a href="/signup">Sign up here</a></li>
-  </ul>
+<link rel="stylesheet" href="/static/css/style.css" />
+<div class="row">
+  <div class="col-9" id="login">
+    <a class="btn btn-primary" href="/login" role="button" id="login-btn">Log in</a>
+    <a class="btn btn-primary" href="/signup" role="button" id="signup-btn">Sign up here</a>
+</div>
+</div>
 {% endblock %}

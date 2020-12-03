@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<link rel="stylesheet" href="/static/css/style.css" />
-<div class="row">
-  <div class="col-9" id="login">
+<body>
+<link rel="stylesheet" href="/static/css/style.css"/>
+<div class="container-fluid" id="homepage">
+  <div class="col-6" id="login">
     <a class="btn btn-primary" href="/login" role="button" id="login-btn">Log in</a>
     <a class="btn btn-primary" href="/signup" role="button" id="signup-btn">Sign up here</a>
 </div>
 </div>
+</body>
 {% endblock %}

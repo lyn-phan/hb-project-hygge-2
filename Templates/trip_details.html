@@ -18,19 +18,29 @@
     <link rel="stylesheet" href="/static/css/style.css" />
   
 <!-- attendees on a trip. Allows for invitations -->
-<h4> Attendees: </h4>
-<ul>
-<li> {{ trip_attendees }}</li>
-<h4>Invite a friend to your trip:</h4>   
-<form action="/trips/{{ trip_id }}" method="POST" id=find_user>
+<h2> Who else is coming? </h2>
+<p>{{ trip_attendees }}</p>
+
+<!-- test in this section -->
+<div class="invite" id="invite-friends">
+<input type="submit" id="invite-friends-btn" name="inviteFriendsBtn" class="submit-friends"> Invite some friends! </button>
+<div id="friends-attending"> </div>
+
+<!-- your real code is in this section below -->
+<!-- <p class="invite-title" id="invite-title">Invite a friend to your trip:</p> -->
+<!-- <form action="/trips/{{ trip_id }}" method="POST" id=find_user>
  <label>First name: </label> 
     <input type="text" name="first name"> 
+<br>
 <label>Last name: </label> 
     <input type="text" name="last name">  
+    <br>    
 <label>Email: </label> 
-    <input type="text" name="email"> 
+    <input type="text" name="email">
+    <br>  
     <input type="submit">
 </form>
+</div> -->
 
 
 <!-- create events on a trip -->

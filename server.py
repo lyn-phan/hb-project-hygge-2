@@ -103,21 +103,40 @@ def show_each_trip_page(trip_id):
 
     return render_template('trip_details.html', trip_id=trip_id, trip_attendees=trip_attendees, destination=destination)
 
+# this function worked before jsonified function on line 123
+# @app.route('/trips/<trip_id>', methods=['POST'])
+# def add_friend_to_trip(trip_id):
+#     """post request for adding a friend form"""
+#     destination = crud.get_trip_name(trip_id)
+#     new_email = request.form.get('email')
+#     found_invite = crud.find_user(email=new_email)
+
+#     if found_invite:
+#         found_id = crud.get_user_id(email=new_email)
+#         add_friend_to_trip = crud.create_user_trip(user_id=found_id, trip_id=trip_id)
+#         flash(f"You and {found_invite} are going to {destination}!")
+#     else:
+#         flash("Sorry, your friend hasn't signed up yet.")
+    
+#     return redirect(f'/trips/{trip_id}') # return redirect('/trips/add-trip-event')
+
 @app.route('/trips/<trip_id>', methods=['POST'])
-def add_friend_to_trip(trip_id):
-    """post request for adding a friend form"""
-    destination = crud.get_trip_name(trip_id)
-    new_email = request.form.get('email')
+def add_friend_jsonified(trip_id):
+    """grabs data from trip details page and jsonifies it and adds to database"""
+
+    friend_first = request.form.get('friendFirstName')
+    friend_last = request.form.get('friendLastName')
+    friend_email = request.form.get('friendEmail')
+
+    data = {'friend_first': friend_first, 'friend_last': friend_last, 'friend_email': friend_email}
+
     found_invite = crud.find_user(email=new_email)
 
     if found_invite:
         found_id = crud.get_user_id(email=new_email)
         add_friend_to_trip = crud.create_user_trip(user_id=found_id, trip_id=trip_id)
-        flash(f"You and {found_invite} are going to {destination}!")
-    else:
-        flash("Sorry, your friend hasn't signed up yet.")
     
-    return redirect(f'/trips/{trip_id}') # return redirect('/trips/add-trip-event')
+    return jsonify(data)
 
 @app.route('/trips/<trip_id>/add-trip-event', methods=['POST'])
 def add_trip_event(trip_id):

@@ -2,14 +2,18 @@
 {% block title %}Welcome!{% endblock %}
 
 {% block content %}
+<body class="home" id="home">
+  <link rel="stylesheet" href="/static/css/style.css" />
+  
   <h2>Welcome, {{session['fname']}}!</h2>
-  <p> Here are your trips:</p>
+  <p> Here are your upcoming trips:</p>
   <ul>
   <li>
       {{ my_user_trip_name }}
   </li>    
   </ul>
-  <a href='/trips/new'>Create to create a new trip!</a> 
+  <a href='/trips/new'>Create a new trip</a> 
   <br>
   <a href='/trips'>Edit my trips</a> 
+  </body>
 {% endblock %}

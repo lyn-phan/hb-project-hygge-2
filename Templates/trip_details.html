@@ -14,21 +14,24 @@
 
 </head>
 <body>
+  <body class="each-trip-page" id="each-trip-page">
+    <link rel="stylesheet" href="/static/css/style.css" />
+  
 <!-- attendees on a trip. Allows for invitations -->
 <h4> Attendees: </h4>
 <ul>
 <li> {{ trip_attendees }}</li>
 <h4>Invite a friend to your trip:</h4>   
 <form action="/trips/{{ trip_id }}" method="POST" id=find_user>
- <li><label>First name: </label> 
-    <input type="text" name="first name"> </li>  
-<li><label>Last name: </label> 
-    <input type="text" name="last name"> </li>  
-<li> <label>Email: </label> 
-    <input type="text" name="email"> </li>  
+ <label>First name: </label> 
+    <input type="text" name="first name"> 
+<label>Last name: </label> 
+    <input type="text" name="last name">  
+<label>Email: </label> 
+    <input type="text" name="email"> 
     <input type="submit">
 </form>
-</ul>
+
 
 <!-- create events on a trip -->
 <h4> Events </h4>

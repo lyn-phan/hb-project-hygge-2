@@ -210,15 +210,9 @@
       template: templates
     });
   
+    // function that creates an event on the calendar 
     var scheduleArray = [];
     cal.createSchedules([{ 
-          // id: '1',
-          // calendarId: '1',
-          // title: 'my schedule',
-          // category: 'allday',
-          // dueDateClass: '',
-          // start: '2020-12-04T22:30:00+09:00', 
-          // end: '2020-12-05T22:30:00+09:00'
       }]);
 
     function createCalendarEvent(options) {
@@ -235,25 +229,7 @@
       scheduleArray.push(eventInfo)
       cal.createSchedules(scheduleArray);
     }
-
-      // cal.createSchedules(scheduleArray);
-  // function createCalendarEvent(options) {
-    // id = (modify server.py to return ID as well in response? OR just use a num increment?)
-    // title = options.event_name
-    // start = options.event_date (set a standard time? midnight to noon?)
-    // end = options.event_date
-    // fill in other attributes as needed (or leave them empty string)
-    // scheduleArray.push({
-      // title: title, -> could also title: options.event_name
-      // start: start,
-      // end: end,
-      // **more attr as needed **
-    // })
-    // cal.createSchedules(scheduleArray); 
-  // }
-
       </script>
-         
     <script src="/static/js/trip_details.js"></script>
     </body>
   </html>

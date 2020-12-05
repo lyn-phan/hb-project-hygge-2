@@ -4,7 +4,7 @@
 {% block content %}
 <body class="home" id="home">
   <link rel="stylesheet" href="/static/css/style.css" />
-  
+  <div class="home-info">
   <h2>Welcome, {{session['fname']}}!</h2>
   <p> Here are your upcoming trips:</p>
   <ul>
@@ -15,5 +15,6 @@
   <a href='/trips/new'>Create a new trip</a> 
   <br>
   <a href='/trips'>Edit my trips</a> 
+  </div>
   </body>
 {% endblock %}

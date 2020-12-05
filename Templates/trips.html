@@ -4,11 +4,13 @@
 {% block content %}
 <body class="trips-list" id="trips-list">
   <link rel="stylesheet" href="/static/css/style.css" />
-
+<div class="trips-list-display">
   <h2>{{session['fname']}}, let's edit your trips.</h2>
       <ul>
         {% for name_of_trip in trip_objects_list %}
         <li> <a href='/trips/{{name_of_trip.trip_id}}'> {{name_of_trip}} </a></li>    
         {% endfor %}
     </ul>
+</div>
+</body>
 {% endblock %}

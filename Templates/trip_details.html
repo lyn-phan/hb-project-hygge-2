@@ -18,12 +18,18 @@
     <link rel="stylesheet" href="/static/css/style.css" />
   
 <!-- attendees on a trip. Allows for invitations -->
-<h2> Who else is coming? </h2>
-<p>{{ trip_attendees }}</p>
+<div class="attendees-display">
+<h2> Time to plan the fun! </h2>
 
-<!-- test in this section -->
+<p> Who's coming? </p>
+<ul>
+  <li> {{ trip_attendees }} </li>
+</ul>
 <div class="invite" id="invite-friends-list">
-<input type="submit" id="invite-friends-btn" class="invite-friends-along" value="Invite some friends!"/> 
+  <input type="submit" id="invite-friends-btn" class="invite-friends-along" value="Invite more friends"/>  
+</div>
+</div>
+<br>
 
 <!-- your real code is in this section below -->
 <!-- <p class="invite-title" id="invite-title">Invite a friend to your trip:</p> -->
@@ -43,7 +49,8 @@
 
 
 <!-- create events on a trip -->
-<h4> Events </h4>
+<div class="events-display">
+<h1> Events </h1>
 <ul id="events_list"></ul>
 <div id="results"></div>
 <button class="create-event-button" id="{{ trip_id }}" name ="create-event-button" type="submit"> Create Event </button>
@@ -231,6 +238,7 @@
     }
       </script>
     <script src="/static/js/trip_details.js"></script>
+    </div>
     </body>
   </html>
 {% endblock %}

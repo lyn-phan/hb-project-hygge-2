@@ -1,8 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Sign up{% endblock %}
+{% block title %} Sign up {% endblock %}
 
 {% block content %}
-  <h2>Please create a profile.</h2>
+<body class="signup-display" id="signup">
+<link rel="stylesheet" href="/static/css/style.css" />
+
+<div class="signup-details" id="signup-details">
+  <h1>Please create a profile.</h1>
   <form action="/signup" method="POST" id="sign-up form">
     <label for="first-name"> First Name:</label>
     <input type="fname" name="fname">
@@ -16,7 +20,9 @@
     <label for="password"> Password: </label>
     <input type="password" name="password">
 <br>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Create profile
+    <button class="btn btn-outline-dark" type="submit" id="signin-btn">Create profile
     </button>
   </form>
+  </div>
+  </body>
 {% endblock %}

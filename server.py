@@ -130,12 +130,12 @@ def add_friend_jsonified(trip_id):
 
     data = {'friend_first': friend_first, 'friend_last': friend_last, 'friend_email': friend_email}
 
-    found_invite = crud.find_user(email=new_email)
+    found_invite = crud.find_user(email=friend_email)
 
     if found_invite:
-        found_id = crud.get_user_id(email=new_email)
+        found_id = crud.get_user_id(email=friend_email)
         add_friend_to_trip = crud.create_user_trip(user_id=found_id, trip_id=trip_id)
-    
+
     return jsonify(data)
 
 @app.route('/trips/<trip_id>/add-trip-event', methods=['POST'])
@@ -150,10 +150,7 @@ def add_trip_event(trip_id):
 
     newEvent = crud.create_event(trip_id=trip_id, event_name=new_event_name, event_date=new_event_date, event_details=new_event_details)
 
-    # return render_template('trip_details.html')
     return jsonify(data)
-
-    # return redirect(f'/trips/{trip_id}')  # return redirect(f'/trips/{trip_id}', newEvent=newEvent)
 
 
 ##########################################################

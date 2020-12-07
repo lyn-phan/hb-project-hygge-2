@@ -88,7 +88,11 @@ def return_attendees(trip_id):
         attendee_name = attendee.fname, attendee.lname
         attendee_list.append(attendee_name)
 
-    return attendee_list
+    raw_data = attendee_list
+    data = [item[0] + ' ' + item[1] for item in raw_data]
+
+    return "\n".join(data)
+
 
 def create_event(trip_id, event_name, event_date, event_details):
     """creates a trip from the events form by passing in a trip_name and trip_id"""

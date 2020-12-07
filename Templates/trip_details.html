@@ -7,7 +7,6 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tui-calendar/1.12.14/tui-calendar.min.js" integrity="sha512-1BmEWbs8aAmzCi9U/YpySsgQx+3t6KXtJ1Q29aZnEIerc0/4rlXgUDnai43R4s66cJEqXjlpYZrqK6EdKTc/ZQ==" crossorigin="anonymous"></script> -->
     <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
     <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
-    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
     <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tui-calendar/1.12.14/tui-calendar.min.css" integrity="sha512-C6+I6Dpcxe4vXajRv2ttpkW2+kxPWsFwvVi9O8XcoKJeam9c/jWPMv3GjB5QnjBwTheD0L81aTP+sGqSDP9xaA==" crossorigin="anonymous" />
@@ -23,11 +22,13 @@
 
 <p> Who's coming? </p>
 <ul>
+
   <li> {{ trip_attendees }} </li>
+
 </ul>
 <div id="attendees-results"> </div>
 <div class="invite" id="invite-friends-list">
-  <!-- <input type="submit" class="invite-friends-along" value="Invite more friends">  -->
+  <div id="form-holder"></div>
   <button class="invite-friends-along" id="{{ trip_id }}" name ="invite-friends-button" type="submit"> Invite more friends </button> 
 </div>
 </div>
